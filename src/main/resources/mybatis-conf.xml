@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--properties的配置 设置配置文件 jdbcConfig-->
+    <properties resource="jdbcConfig.properties"></properties>
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+    <!--添加分页的插件-->
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <!--分页参数合理化-->
+            <property name="reasonable" value="true"></property>
+        </plugin>
+    </plugins>
+    <!--配置环境-->
+    <environments default="development">
+        <!--配置mysql的绑定-->
+        <environment id="development">
+            <!--配置事务的类型-->
+            <transactionManager type="JDBC">
+            </transactionManager>
+            <!--配置数据源也叫（连接池）-->
+            <dataSource type="POOLED">
+                <!--连接数据库的基本信息-->
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+
+        </environment>
+    </environments>
+    <!--指定映射配置文件的位置，映射配置指的是每个独立的dao配置文件-->
+    <mappers>
+        <!--这里的package  是用于指定dao接口所在的包-->
+        <!--<package name="com.atguigu.crud.dao"></package>-->
+    </mappers>
+</configuration>
